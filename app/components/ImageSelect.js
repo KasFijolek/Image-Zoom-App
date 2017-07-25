@@ -1,6 +1,10 @@
 const React = require('react')
 const PropTypes = require('prop-types')
 
+/**
+ * This is the ImageSelect React component that displays
+ * the select box that lets you change the image to be displayed
+ */
 function ImageSelect (props) {
   return (
     <div className='image-select-container'>

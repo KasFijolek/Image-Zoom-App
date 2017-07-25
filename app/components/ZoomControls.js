@@ -1,6 +1,10 @@
 const React = require('react')
 const PropTypes = require('prop-types')
 
+/**
+ * This is the ZoomControls React component that displays
+ * the current zoom level and buttons that handle changing the zoom level
+ */
 function ZoomControls (props) {
   return (
     <div className='zoom-controls'>

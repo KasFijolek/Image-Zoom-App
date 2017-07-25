@@ -4,6 +4,10 @@ const PropTypes = require('prop-types')
 const ImageSelect = require('./ImageSelect')
 const ZoomControls = require('./ZoomControls')
 
+/**
+ * This is the HeaderBar React component that displays
+ * ImageSelect and ZoomControls components.
+ */
 function HeaderBar (props) {
   return (
     <div className='header-bar'>

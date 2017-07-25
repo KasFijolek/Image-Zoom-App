@@ -4,9 +4,10 @@
   "description": "Simple image zoom app",
   "main": "./app/index.js",
   "scripts": {
-    "create": "webpack",
+    "build": "webpack",
     "start": "webpack-dev-server --open",
-    "test": "jest --watch --verbose"
+    "test": "jest --watch --verbose",
+    "documentation": "documentation build app/** -f html -o docs"
   },
   "babel": {
     "presets": [
