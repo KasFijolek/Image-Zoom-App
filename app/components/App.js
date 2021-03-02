@@ -1,43 +1,39 @@
-const React = require('react')
-const PropTypes = require('prop-types')
+import React, { useState } from "react";
+import PropTypes from "prop-types";
+import styled from "styled-components";
 
-const HeaderBar = require('./HeaderBar')
-const ImageContainer = require('./ImageContainer')
+import HeaderBar from "./HeaderBar";
+import ImageContainer from "./ImageContainer";
+
+const Container = styled.div`
+  margin: 0;
+  width: 100%;
+  height: 100%;
+`;
 
 /**
  * This is the App React component that displays
  * HeaderBar and ImageContainer components.
  */
-class App extends React.Component {
-  constructor (props) {
-    super(props)
-
-    this.state = {
-      currentImgIndex: 0,
-      zoomLevel: 100
-    }
-
-    this.handleSelectChange = this.handleSelectChange.bind(this)
-    this.updateZoomLevel = this.updateZoomLevel.bind(this)
-    this.handleZoomDecrease = this.handleZoomDecrease.bind(this)
-    this.handleZoomIncrease = this.handleZoomIncrease.bind(this)
-  }
+function App({ images, minZoom }) {
+  const [currentImgIndex, setCurrentImgIndex] = useState(0);
+  const [zoomLevel, setZoomLevel] = useState(100);
 
   /**
    * Handles decreasing the zoom level to be applied to the image
    */
-  handleZoomDecrease () {
-    if (this.state.zoomLevel > 50) {
-      this.updateZoomLevel(this.state.zoomLevel - 5)
+  function handleZoomDecrease() {
+    if (zoomLevel > 50) {
+      updateZoomLevel(zoomLevel - 5);
     }
   }
 
   /**
    * Handles increasing the zoom level to be applied to the image
    */
-  handleZoomIncrease () {
-    if (this.state.zoomLevel < 100) {
-      this.updateZoomLevel(this.state.zoomLevel + 5)
+  function handleZoomIncrease() {
+    if (zoomLevel < 100) {
+      updateZoomLevel(zoomLevel + 5);
     }
   }
 
@@ -46,20 +42,18 @@ class App extends React.Component {
    * loaded into ImageContainer
    * @param {e} e event from ImageSelect component with new img index
    */
-  handleSelectChange (e) {
-    this.setState({
-      currentImgIndex: Number(e.target.value)
-    })
+  function handleSelectChange(e) {
+    setCurrentImgIndex(Number(e.target.value));
   }
 
   /**
    * Updates the current zoomLevel that should be applied to the image
    * @param {zoomLevel} zoomLevel new zoomLevel value to be applied
    */
-  updateZoomLevel (zoomLevel) {
-    const zoomLevelIsAMultipleOfFive = zoomLevel % 5 === 0
+  function updateZoomLevel(zoomLevel) {
+    const zoomLevelIsAMultipleOfFive = zoomLevel % 5 === 0;
     if (zoomLevelIsAMultipleOfFive) {
-      this.setState({ zoomLevel })
+      setZoomLevel(zoomLevel);
     }
   }
 
@@ -67,24 +61,24 @@ class App extends React.Component {
    * Component render function
    * Renders HeaderBar and ImageContainer components
    */
-  render () {
-    return (
-      <div className='container'>
-        <HeaderBar
-          images={this.props.images}
-          handleSelectChange={this.handleSelectChange}
-          zoomLevel={this.state.zoomLevel}
-          handleZoomDecrease={this.handleZoomDecrease}
-          handleZoomIncrease={this.handleZoomIncrease}
-          currentImgIndex={this.state.currentImgIndex} />
-        <ImageContainer
-          imgUrl={this.props.images[this.state.currentImgIndex].url}
-          minZoom={this.props.minZoom}
-          updateZoomLevel={this.updateZoomLevel}
-          zoomLevel={this.state.zoomLevel} />
-      </div>
-    )
-  }
+  return (
+    <Container>
+      <HeaderBar
+        images={images}
+        handleSelectChange={handleSelectChange}
+        zoomLevel={zoomLevel}
+        handleZoomDecrease={handleZoomDecrease}
+        handleZoomIncrease={handleZoomIncrease}
+        currentImgIndex={currentImgIndex}
+      />
+      <ImageContainer
+        imgUrl={images[currentImgIndex].url}
+        minZoom={minZoom}
+        updateZoomLevel={updateZoomLevel}
+        zoomLevel={zoomLevel}
+      />
+    </Container>
+  );
 }
 
 /**
@@ -92,11 +86,11 @@ class App extends React.Component {
  */
 App.defaultProps = {
   minZoom: 50,
-  maxZoom: 100
-}
+  maxZoom: 100,
+};
 
 App.propTypes = {
-  images: PropTypes.array.isRequired
-}
+  images: PropTypes.array.isRequired,
+};
 
-module.exports = App
+export default App;

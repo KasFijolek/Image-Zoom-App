@@ -1,26 +1,37 @@
-const React = require('react')
-const PropTypes = require('prop-types')
+import React from "react";
+import PropTypes from "prop-types";
+import styled from "styled-components";
 
-const ImageSelect = require('./ImageSelect')
-const ZoomControls = require('./ZoomControls')
+import ImageSelect from "./ImageSelect";
+import ZoomControls from "./ZoomControls";
+
+const HeaderBarElement = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background: #e0e6ed;
+`;
 
 /**
  * This is the HeaderBar React component that displays
  * ImageSelect and ZoomControls components.
  */
-function HeaderBar (props) {
+export default function HeaderBar(props) {
   return (
-    <div className='header-bar'>
+    <HeaderBarElement>
       <ImageSelect
         images={props.images}
         currentImgIndex={props.currentImgIndex}
-        handleSelectChange={props.handleSelectChange} />
+        handleSelectChange={props.handleSelectChange}
+      />
       <ZoomControls
         zoomLevel={props.zoomLevel}
         handleZoomDecrease={props.handleZoomDecrease}
-        handleZoomIncrease={props.handleZoomIncrease} />
-    </div>
-  )
+        handleZoomIncrease={props.handleZoomIncrease}
+      />
+    </HeaderBarElement>
+  );
 }
 
 HeaderBar.propTypes = {
@@ -28,7 +39,5 @@ HeaderBar.propTypes = {
   zoomLevel: PropTypes.number.isRequired,
   handleSelectChange: PropTypes.func.isRequired,
   handleZoomDecrease: PropTypes.func.isRequired,
-  handleZoomIncrease: PropTypes.func.isRequired
-}
-
-module.exports = HeaderBar
+  handleZoomIncrease: PropTypes.func.isRequired,
+};
